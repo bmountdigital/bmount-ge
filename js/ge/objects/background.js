@@ -11,14 +11,16 @@ define(function(require) {
                 this.ctx = canvas.getContext("2d");
             },
             draw: function() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                if (this.props.type == "color") {
-                    this.ctx.beginPath();
-                    this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
-                    this.ctx.fillStyle = this.props.color;
-                    this.ctx.fill();
-                    this.ctx.closePath();
-                    this.drawn = true;
+                if (this.needsRefresh()) {
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    if (this.props.type == "color") {
+                        this.ctx.beginPath();
+                        this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
+                        this.ctx.fillStyle = this.props.color;
+                        this.ctx.fill();
+                        this.ctx.closePath();
+                        this.drawn = true;
+                    }
                 }
                 return this.canvas;
             },

@@ -33,7 +33,6 @@ define(function(require) {
                 return lastHandled;
             },
             setPosition: function(pos) {
-
                 this.objectPos = pos;
             },
             getPosition: function() {
