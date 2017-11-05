@@ -14,6 +14,8 @@ define(function(require) {
             eventHandler: null,
             startTime: null,
             detectFn: null,
+            gameOver: false,
+            finished: false,
             init: function(index, canvas) {
                 this.detectFn = require('./../game/collisionDetector');
                 this.canvas = canvas;
@@ -44,10 +46,15 @@ define(function(require) {
                 this.detectFn(this.player, this.playerObjects, this.eventHandler.getLiveEvents());
             },
             _handlePlayerObjects: function(pressedKeys) {
-                this.playerObjects = this.player.handlePressedKeys(pressedKeys, this.canvas, this.playerObjects);
-                for (var i = 0; i < this.playerObjects.length; i++) {
-                    var o = this.playerObjects[i];
-                    o.draw();
+                if (this.player.getLife() < 1) {
+                    this.gameOver = true;
+                }
+                else {
+                    this.playerObjects = this.player.handlePressedKeys(pressedKeys, this.canvas, this.playerObjects);
+                    for (var i = 0; i < this.playerObjects.length; i++) {
+                        var o = this.playerObjects[i];
+                        o.draw();
+                    }
                 }
             },
             _drawPlayerObjects: function(ctx) {
@@ -59,7 +66,11 @@ define(function(require) {
             },
             isFinished() {
                 return false;
+            },
+            isGameOver() {
+                return this.gameOver;
             }
+
         }
     }
 });

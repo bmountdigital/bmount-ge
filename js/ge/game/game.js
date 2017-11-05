@@ -22,16 +22,21 @@ define(function(require) {
         },
         loop: function() {
             canvas.reset();
-            level.draw(pressedKeys);
-            canvas.updateDisplay();
-            if (!level.isFinished()) {
-                requestAnimationFrame(instance.loop);
+            if (level.isGameOver()) {
+                alert('You are dead');
+            }
+            else {
+                level.draw(pressedKeys);
+                canvas.updateDisplay();
+                if (!level.isFinished()) {
+                    requestAnimationFrame(instance.loop);
+                }
             }
         },
-        keyDown: function(e){
+        keyDown: function(e) {
             pressedKeys[e.keyCode] = true;
         },
-        keyUp: function(e){
+        keyUp: function(e) {
             pressedKeys[e.keyCode] = false;
         },
     }

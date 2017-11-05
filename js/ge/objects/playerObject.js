@@ -17,7 +17,7 @@ define(function(require) {
                     startX += prop.relPos[0];
                     startY += prop.relPos[1];
                 }
-                this.objectProp = settings.getProperty("game.object")[prop.id];
+                this.objectProp = JSON.parse(JSON.stringify(settings.getProperty("game.object")))[prop.id];
                 this.objectPos = [startX, startY];
                 this.prop = prop;
                 this.canvas = mainCanvas.createCanvas(this.objectProp.size[0], this.objectProp.size[1]);
@@ -77,8 +77,14 @@ define(function(require) {
                 if (x > mainSize[0] + 100 || y > mainSize[1] + 100) {
                     return true;
                 }
+            },
+            getBounds: function(){
+                var x1 = this.objectPos[0];
+                var y1 = this.objectPos[1];
+                var x2 = x1 + this.canvas.width;
+                var y2 = y1 + this.canvas.height;
+                return [x1,y1,x2,y2];
             }
-
         }
     };
 });

@@ -20,7 +20,7 @@ define(function(require) {
                 }
             },
             loop: function(ctx){
-                var elapsed = new Date().getTime();
+                var elapsed = new Date().getTime() - this.startTime;
                 var newEvents = [];
                 for (var i = 0; i < this.events.length; i++) {
                     var event = this.events[i];
@@ -32,6 +32,8 @@ define(function(require) {
                     } 
                     if (!event.isKilled()){
                         newEvents.push(event);
+                    } else {
+                        event = null;
                     }
                 }
                 this.events = newEvents;

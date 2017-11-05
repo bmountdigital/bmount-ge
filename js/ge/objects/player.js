@@ -7,11 +7,15 @@ define(function(require) {
             ctx: null,
             shapeCreator: null,
             lastEvents: {},
+            life: 0,
+            maxLife: 0,
             pos: [],
             playerObjects: [],
             init: function(props, canvas, playerPos) {
                 this.props = props;
                 this.canvas = canvas;
+                this.life = props.life;
+                this.maxLife = props.life;
                 this.ctx = canvas.getContext("2d");
                 this.shapeCreator = require("./../graphics/shapeCreator");
                 this.pos = playerPos;
@@ -37,7 +41,6 @@ define(function(require) {
                         }
                     }
                 }
-                //remove dead and null objects
                 var newArr = [];
                 for (var i = 0; i < this.playerObjects.length; i++) {
                     var o = this.playerObjects[i];
@@ -72,11 +75,30 @@ define(function(require) {
                     this.playerObjects.push(playerObject);
                 }
             },
-            getPosition(){
+            getPosition: function(){
               return this.pos;  
+            },
+            addLife: function(amount){
+              this.life += amount;
+              if (this.life > this.maxLife) {
+                  this.life = this.maxLife;
+              }
+            },
+            hurt:function(amount) {
+                this.life -= amount;
+            },
+            getLife: function(){
+              return this.life;  
             },
             needsRefresh: function() {
                 return !this.drawn;
+            },
+            getBounds: function(){
+                var x1 = this.pos[0];
+                var y1 = this.pos[1];
+                var x2 = x1 + this.canvas.width;
+                var y2 = y1 + this.canvas.height;
+                return [x1,y1,x2,y2];
             }
         }
     }

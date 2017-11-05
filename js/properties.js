@@ -13,36 +13,103 @@ define(function(require) {
                 },
                 "events": {
                     "enemy1": {
+                        "creature": "enemy4",
+                        "startTime": 3000 + Math.random() * 4000
+                    },
+                    "enemy2": {
+                        "creature": "enemy3",
+                        "startTime": 3000 + Math.random() * 4000
+                    },
+                    "enemy3": {
+                        "creature": "enemy2",
+                        "startTime": Math.random() * 8000
+                    },
+                    "enemy4": {
                         "creature": "enemy1",
-                        "startTime": 2000
-                    }    
+                        "startTime": Math.random() * 8000
+                    },
+                    "enemy5": {
+                        "creature": "enemy2",
+                        "startTime": 4000 + Math.random() * 4000
+                    },
+                    "enemy6": {
+                        "creature": "enemy4",
+                        "startTime": 2000 + Math.random() * 6000
+                    },
+                    "enemy7": {
+                        "creature": "enemy1",
+                        "startTime": Math.random() * 10000
+                    },
+                    "enemy8": {
+                        "creature": "enemy1",
+                        "startTime": 2000 + Math.random() * 4000
+                    },
+                    "enemy9": {
+                        "creature": "enemy3",
+                        "startTime": Math.random() * 4000
+                    },
+                    "enemy10": {
+                        "creature": "enemy3",
+                        "startTime": 2000 + Math.random() * 4000
+                    },
+                    "enemy11": {
+                        "creature": "enemy4",
+                        "startTime": Math.random() * 4000
+                    },
+                    "enemy12": {
+                        "creature": "enemy2",
+                        "startTime": Math.random() * 9000
+                    },
+                    "enemy13": {
+                        "creature": "enemy3",
+                        "startTime": Math.random() * 9000
+                    },
+                    "enemy14": {
+                        "creature": "enemy1",
+                        "startTime": Math.random() * 4000
+                    }
                 },
                 "startPosition": [480, 500],
             }],
             "physics": [],
             "player": {
                 "size": [40, 40],
+                "life": 12,
                 "shapes": [{
                     "type": "rect",
                     "fill": true,
-                    "fillColor": "#556677",
-                    "color": "#333333",
-                    "lineWidth": 5,
-                    "arguments": [0, 2, 40, 38]
-                }, {
-                    "type": "arc",
+                    "fillColor": "#555555",
+                    "color": "#555555",
+                    "lineWidth": 1,
+                    "arguments": [0, 26, 40, 3]
+                },{
+                    "type": "cust",
                     "fill": true,
-                    "fillColor": "#776655",
-                    "color": "#333333",
-                    "lineWidth": 2,
-                    "arguments": [20, 20, 10, 0.00, 7.28, false]
-                }, {
+                    "fillColor": "#888888",
+                    "color": "#888888",
+                    "lineWidth": 0,
+                    "arguments": [[20,10],[40,22],[40,26],[20,28],[0,26],[0,22],[20,10]]
+                },{
+                    "type": "cust",
+                    "fill": true,
+                    "fillColor": "#aaaaaa",
+                    "color": "#aaaaaa",
+                    "lineWidth": 0,
+                    "arguments": [[15,7],[20,0],[25,7],[27,35],[13,35],[15,6]]
+                },{
                     "type": "rect",
                     "fill": true,
-                    "fillColor": "#776655",
-                    "color": "333333",
+                    "fillColor": "#888888",
+                    "color": "#888888",
                     "lineWidth": 1,
-                    "arguments": [17, 0, 6, 20]
+                    "arguments": [17, 35, 6, 5]
+                }, {
+                    "type": "cust",
+                    "fill": true,
+                    "fillColor": "#333333",
+                    "color": "#333333",
+                    "lineWidth": 0,
+                    "arguments": [[20,12],[23,14],[23,25],[20,27],[17,25],[17,14],[20,12]]
                 }],
                 "keyEvent": {
                     "32": {
@@ -59,17 +126,157 @@ define(function(require) {
                     "size": [40,40],
                     "life": 10,
                     "force": 5,
+                    "startPos": [null, -100],
                     "shapes": [{
-                        "type": "arc",
+                        "type": "rect",
                         "fill": true,
-                        "fillColor": "#ff3333",
-                        "color": "#ff0000",
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [5,0, 5, 10]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [17,0, 6, 10]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [30,0, 5, 10]
+                    },{
+                        "type": "cust",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#009900",
                         "lineWidth": 2,
-                        "arguments": [20, 20, 20, 0.00, 7.29, false]
+                        "arguments": [[0,10],[20,40],[40,10],[0,10]]
                     }],
                     "xvel": 0,
                     "yvel": 3
+                },
+                "enemy2": {
+                    "size": [30,30],
+                    "life": 10,
+                    "force": 5,
+                    "startPos": [null, -100],
+                    "shapes": [{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#444444",
+                        "color": "#444444",
+                        "lineWidth": 1,
+                        "arguments": [2,10, 3, 20]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#444444",
+                        "color": "#444444",
+                        "lineWidth": 1,
+                        "arguments": [25,10, 3, 20]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#444444",
+                        "color": "#444444",
+                        "lineWidth": 1,
+                        "arguments": [12,0, 6, 30]
+                    },{
+                        "type": "arc",
+                        "fill": true,
+                        "fillColor": "#444444",
+                        "color": "#444444",
+                        "lineWidth": 2,
+                        "arguments": [15, 15, 10, 0.00, 7.29, false]
+                    }, {
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#3399cc",
+                        "color": "#3399cc",
+                        "lineWidth": 1,
+                        "arguments": [0,13, 30, 6]
+                    }],
+                    "xvel": 0,
+                    "yvel": 3
+                },
+                "enemy3": {
+                    "size": [40,40],
+                    "life": 10,
+                    "force": 5,
+                    "startPos": [null, -100],
+                    "shapes": [{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [5,0, 5, 10]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [17,0, 6, 10]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [30,0, 5, 10]
+                    },{
+                        "type": "cust",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#009900",
+                        "lineWidth": 2,
+                        "arguments": [[0,10],[20,40],[40,10],[0,10]]
+                    }],
+                    "xvel": 1,
+                    "yvel": 4
+                },"enemy4": {
+                    "size": [40,40],
+                    "life": 10,
+                    "force": 5,
+                    "startPos": [null, -100],
+                    "shapes": [{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [5,0, 5, 10]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [17,0, 6, 10]
+                    },{
+                        "type": "rect",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#115511",
+                        "lineWidth": 1,
+                        "arguments": [30,0, 5, 10]
+                    },{
+                        "type": "cust",
+                        "fill": true,
+                        "fillColor": "#115511",
+                        "color": "#009900",
+                        "lineWidth": 2,
+                        "arguments": [[0,10],[20,40],[40,10],[0,10]]
+                    }],
+                    "xvel": -1,
+                    "yvel": 4
                 }
+                
             },
             "object": {
                 "bullet1": {
