@@ -1,8 +1,10 @@
 define(function(require) {
 
     var resolution = 4;
-
-    return function(player, playerObjects, events) {
+    var soundManager = null;
+    
+    return function(player, playerObjects, events, sndManager) {
+        soundManager = sndManager;
         for (var i = 0; i < events.length; i++) {
             var event = events[i];
             if (isBoundaryColliding(player, event)) {
@@ -19,6 +21,8 @@ define(function(require) {
 
     function playerCollision(player, event) {
         player.hurt(event.getForce());
+        soundManager.stop("crash");
+        soundManager.play("crash");
         event.kill();
     }
 

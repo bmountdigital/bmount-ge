@@ -5,6 +5,8 @@ define(function(require) {
     var player = null;
     var pressedKeys = {};
     var soundManager = null;
+    var eventListeners = [];
+    var screens = null;
     var instance = {
         level: null,
         init: function() {
@@ -12,14 +14,24 @@ define(function(require) {
             log.log("Initialize game");
             canvas = require("./../graphics/canvas");
             canvas.init(this);
+            screens = require('./../graphics/screens');
+            screens.loading(canvas.getContext());
+            canvas.updateDisplay();
             var settings = require('./../util/settings');
             var soundProps = settings.getProperty("game.sound");
             soundManager = require('./../sound/soundManager');
             soundManager.init(soundProps);
             this.loadLevel();
+            var t = this;
+            t.start();
+        },
+        sleep: function (ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        },
+        start: function() {
             this.loop();
-            document.addEventListener("keydown", this.keyDown, false);
-            document.addEventListener("keyup", this.keyUp, false);
+            eventListeners.push(document.addEventListener("keydown", this.keyDown, false));
+            eventListeners.push(document.addEventListener("keyup", this.keyUp, false));
         },
         loadLevel: function() {
             level = require("./../objects/level")(currentLevel);
@@ -28,7 +40,11 @@ define(function(require) {
         loop: function() {
             canvas.reset();
             if (level.isGameOver()) {
-                alert('You are dead');
+                soundManager.play("lost");
+                setTimeout(function(){
+                    screens.gameOver(canvas.getContext());
+                    canvas.updateDisplay();    
+                }, 700);
             }
             else {
                 level.draw(pressedKeys);

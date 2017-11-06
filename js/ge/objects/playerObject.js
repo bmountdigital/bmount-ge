@@ -75,7 +75,7 @@ define(function(require) {
                 var x = this.objectPos[0];
                 var y = this.objectPos[1];
                 var mainSize = this.mainCanvas.getSize();
-                if (x < -100 || y < -100) {
+                if (x < -10 || y < -10) {
                     return true;
                 }
                 if (x > mainSize[0] + 100 || y > mainSize[1] + 100) {

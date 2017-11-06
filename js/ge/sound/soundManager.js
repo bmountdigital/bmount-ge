@@ -18,6 +18,11 @@ define(function(require) {
             if (sound) {
                 sound.play();
             }
+        },
+        stop: function(key) {
+            var sound = this.sounds[key];
+            sound.pause();
+            sound.currentTime = 0;
         }
     }
 });

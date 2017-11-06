@@ -14,39 +14,39 @@ define(function(require) {
                 "events": {
                     "enemy1": {
                         "creature": "enemy4",
-                        "startTime": 3000 + Math.random() * 4000
+                        "startTime": 3000 + Math.random() * 7000
                     },
                     "enemy2": {
                         "creature": "enemy3",
-                        "startTime": 3000 + Math.random() * 4000
+                        "startTime": 3000 + Math.random() * 7000
                     },
                     "enemy3": {
                         "creature": "enemy2",
-                        "startTime": Math.random() * 8000
+                        "startTime": Math.random() * 11000
                     },
                     "enemy4": {
                         "creature": "enemy1",
-                        "startTime": Math.random() * 8000
+                        "startTime": Math.random() * 11000
                     },
                     "enemy5": {
                         "creature": "enemy2",
-                        "startTime": 4000 + Math.random() * 4000
+                        "startTime": 4000 + Math.random() * 7000
                     },
                     "enemy6": {
                         "creature": "enemy4",
-                        "startTime": 2000 + Math.random() * 6000
+                        "startTime": 2000 + Math.random() * 9000
                     },
                     "enemy7": {
                         "creature": "enemy1",
-                        "startTime": Math.random() * 10000
+                        "startTime": Math.random() * 13000
                     },
                     "enemy8": {
                         "creature": "enemy1",
-                        "startTime": 2000 + Math.random() * 4000
+                        "startTime": 2000 + Math.random() * 8000
                     },
                     "enemy9": {
                         "creature": "enemy3",
-                        "startTime": Math.random() * 4000
+                        "startTime": Math.random() * 11000
                     },
                     "enemy10": {
                         "creature": "enemy3",
@@ -54,11 +54,11 @@ define(function(require) {
                     },
                     "enemy11": {
                         "creature": "enemy4",
-                        "startTime": Math.random() * 4000
+                        "startTime": Math.random() * 9000
                     },
                     "enemy12": {
                         "creature": "enemy2",
-                        "startTime": Math.random() * 9000
+                        "startTime": Math.random() * 13000
                     },
                     "enemy13": {
                         "creature": "enemy3",
@@ -66,7 +66,7 @@ define(function(require) {
                     },
                     "enemy14": {
                         "creature": "enemy1",
-                        "startTime": Math.random() * 4000
+                        "startTime": Math.random() * 13000
                     }
                 },
                 "startPosition": [480, 500],
@@ -136,18 +136,17 @@ define(function(require) {
                 }],
                 "keyEvent": {
                     "32": {
-                        "sound": "test",
                         "objects": [{
                             "event": "create",
                             "type": "object",
                             "id": "bullet1",
-                            "minWait": 100,
+                            "minWait": 200,
                             "relPos": [8, 20]
                         }, {
                             "event": "create",
                             "type": "object",
                             "id": "bullet1",
-                            "minWait": 100,
+                            "minWait": 200,
                             "relPos": [28, 20]
                         }]
 
@@ -332,9 +331,9 @@ define(function(require) {
                     "shapes": [{
                         "type": "rect",
                         "fill": true,
-                        "fillColor": "#cc3399",
-                        "color": "#cc99cc",
-                        "lineWidth": 3,
+                        "fillColor": "#ff9999",
+                        "color": "#ff0000",
+                        "lineWidth": 1,
                         "arguments": [0, 0, 4, 4]
                     }],
                     "force": 6,
@@ -344,9 +343,26 @@ define(function(require) {
                 }
             },
             "sound": {
-                "test": {
+                "boom": {
                     vol: 1,
-                    src: "sound/test.mp3"
+                    src: "sound/boom.mp3"
+                },
+                "bg": {
+                    vol:0.1,
+                    src: "sound/bg.mp3",
+                    loop: true
+                },
+                "shot": {
+                    vol: 0.5,
+                    src: "sound/shot.mp3"
+                }, 
+                "lost": {
+                    vol: 0.3,
+                    src: "sound/lost.mp3"
+                },
+                "crash": {
+                    vol: 0.5,
+                    src: "sound/crash.mp3"
                 }
             }
 

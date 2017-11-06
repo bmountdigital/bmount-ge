@@ -1,5 +1,5 @@
 define(function(require) {
-    return function(eventData, settings) {
+    return function(eventData, settings, soundManager) {
         var creature = {
             time: eventData.startTime ? eventData.startTime : null,
             props: JSON.parse(JSON.stringify(settings.getProperty("game.creature")[eventData.creature])),
@@ -10,6 +10,7 @@ define(function(require) {
             pos: [0,0],
             canvas: null, //html canvas
             ctx: null,
+            soundManager: soundManager,
             life: 0,
             isAlive: function(elapsed) {
                 if (!this.alive && this.time && this.isWakeTime(elapsed)) {
@@ -17,7 +18,10 @@ define(function(require) {
                 }
                 return this.alive;
             },
-            kill: function(){
+            kill: function(killed){
+                if (!this.killed && killed) {
+                    this.soundManager.play("shot");    
+                }
                 this.killed = true;
             },
             isKilled: function(){
@@ -66,7 +70,7 @@ define(function(require) {
             hurt: function(amount){
                 this.life -= amount;
                 if (this.life < 1) {
-                    this.kill();
+                    this.kill(true);
                 }
             },
             getLife: function (amount) {

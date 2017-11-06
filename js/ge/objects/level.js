@@ -21,6 +21,7 @@ define(function(require) {
                 this.detectFn = require('./../game/collisionDetector');
                 this.canvas = canvas;
                 this.soundManager = soundManager;
+                this.soundManager.play("bg");
                 this.startTime = new Date().getTime();
                 this.log = require('util/log')("level.js");
                 var settings = require('./../util/settings');
@@ -29,7 +30,7 @@ define(function(require) {
                 this.background = require('./background')();
                 this.background.init(props.background, canvas.createCanvas());
                 this.eventHandler = require('./../game/eventHandler')();
-                this.eventHandler.init(props.events, settings, canvas);
+                this.eventHandler.init(props.events, settings, canvas, this.soundManager);
                 this.player = require('./player')();
                 var playerProps = settings.getProperty("game.player")
                 this.player.init(playerProps, canvas.createCanvas(playerProps.size[0], playerProps[1]), this.playerPos, this.soundManager);
@@ -45,7 +46,7 @@ define(function(require) {
                 ctx.drawImage(this.playerImage, plPos[0], plPos[1]);
                 this._drawPlayerObjects(ctx);
                 this.eventHandler.loop(ctx);
-                this.detectFn(this.player, this.playerObjects, this.eventHandler.getLiveEvents());
+                this.detectFn(this.player, this.playerObjects, this.eventHandler.getLiveEvents(), this.soundManager);
             },
             _handlePlayerObjects: function(pressedKeys) {
                 if (this.player.getLife() < 1) {
@@ -70,6 +71,9 @@ define(function(require) {
                 return false;
             },
             isGameOver() {
+                if (this.gameOver) {
+                    this.soundManager.stop("bg");
+                }
                 return this.gameOver;
             }
 

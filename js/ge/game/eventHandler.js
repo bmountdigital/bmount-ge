@@ -4,7 +4,8 @@ define(function(require) {
             events: [],
             startTime: null,
             settings: null,
-            init: function(events, settings, ctx){
+            soundManager: null,
+            init: function(events, settings, ctx, soundManager){
                 this.ctx = ctx;
                 this.settings = settings;
                 this.startTime = new Date().getTime();
@@ -13,7 +14,7 @@ define(function(require) {
                     var eventData = events[name];
                     var event = null;
                     if (eventData.creature) {
-                        event = creatureConstructor(eventData, settings);
+                        event = creatureConstructor(eventData, settings, soundManager);
                         event.init(ctx);
                     }
                     this.events.push(event);
