@@ -10,6 +10,7 @@ define(function(require) {
             pos: [0,0],
             canvas: null, //html canvas
             ctx: null,
+            life: 0,
             isAlive: function(elapsed) {
                 if (!this.alive && this.time && this.isWakeTime(elapsed)) {
                     this.wake();
@@ -32,6 +33,7 @@ define(function(require) {
                 return this.props.force;
             },
             init: function(mainCanvas) {
+                this.life = this.props.life;
                 this.shapeCreator = require("./../../graphics/shapeCreator");
                 this.mainCanvas = mainCanvas;
                 if (this.props.startPos) {
@@ -60,6 +62,15 @@ define(function(require) {
                 if (this.isOutsideCanvas()) {
                     this.kill();
                 }
+            },
+            hurt: function(amount){
+                this.life -= amount;
+                if (this.life < 1) {
+                    this.kill();
+                }
+            },
+            getLife: function (amount) {
+                this.life += amount;
             },
             isOutsideCanvas: function() {
                 var x = this.pos[0];

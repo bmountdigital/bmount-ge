@@ -7,6 +7,7 @@ define(function(require) {
             shapeCreator: null,
             canvas: null, //html canvas
             ctx: null,
+            force: 0,
             drawn: false,
             objectProp: null,
             mainCanvas: null,
@@ -18,6 +19,7 @@ define(function(require) {
                     startY += prop.relPos[1];
                 }
                 this.objectProp = JSON.parse(JSON.stringify(settings.getProperty("game.object")))[prop.id];
+                this.force = this.objectProp.force;
                 this.objectPos = [startX, startY];
                 this.prop = prop;
                 this.canvas = mainCanvas.createCanvas(this.objectProp.size[0], this.objectProp.size[1]);
@@ -26,11 +28,13 @@ define(function(require) {
                 var now = new Date().getTime();
                 if (lastHandled && prop.minWait && now - lastHandled < prop.minWait) {
                     this.kill();
-                }
-                else {
+                } else {
                     lastHandled = now;
                 }
                 return lastHandled;
+            },
+            getForce: function(){
+              return this.force;  
             },
             setPosition: function(pos) {
                 this.objectPos = pos;

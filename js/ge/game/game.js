@@ -4,6 +4,7 @@ define(function(require) {
     var level = null;
     var player = null;
     var pressedKeys = {};
+    var soundManager = null;
     var instance = {
         level: null,
         init: function() {
@@ -11,6 +12,10 @@ define(function(require) {
             log.log("Initialize game");
             canvas = require("./../graphics/canvas");
             canvas.init(this);
+            var settings = require('./../util/settings');
+            var soundProps = settings.getProperty("game.sound");
+            soundManager = require('./../sound/soundManager');
+            soundManager.init(soundProps);
             this.loadLevel();
             this.loop();
             document.addEventListener("keydown", this.keyDown, false);
@@ -18,7 +23,7 @@ define(function(require) {
         },
         loadLevel: function() {
             level = require("./../objects/level")(currentLevel);
-            level.init(currentLevel, canvas);
+            level.init(currentLevel, canvas, soundManager);
         },
         loop: function() {
             canvas.reset();

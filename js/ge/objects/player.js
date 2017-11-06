@@ -11,7 +11,8 @@ define(function(require) {
             maxLife: 0,
             pos: [],
             playerObjects: [],
-            init: function(props, canvas, playerPos) {
+            soundManager: null,
+            init: function(props, canvas, playerPos, soundManager) {
                 this.props = props;
                 this.canvas = canvas;
                 this.life = props.life;
@@ -19,6 +20,7 @@ define(function(require) {
                 this.ctx = canvas.getContext("2d");
                 this.shapeCreator = require("./../graphics/shapeCreator");
                 this.pos = playerPos;
+                this.soundManager = soundManager;
             },
             draw: function() {
                 if (this.needsRefresh()) {
@@ -30,14 +32,14 @@ define(function(require) {
                     this.drawn = true;
                 }
                 return this.canvas;
-                
+
             },
-            handlePressedKeys: function(pressedKeys, canvasClass, playerObjects){
+            handlePressedKeys: function(pressedKeys, canvasClass, playerObjects) {
                 this._move(pressedKeys);
                 for (var keyCode in pressedKeys) {
                     if (pressedKeys[keyCode]) {
                         if (this.props.keyEvent[keyCode]) {
-                           this._handleEvent(keyCode, canvasClass); 
+                            this._handleEvent(keyCode, canvasClass);
                         }
                     }
                 }
@@ -50,12 +52,12 @@ define(function(require) {
                 }
                 return newArr;
             },
-            _move: function(pressedKeys){
+            _move: function(pressedKeys) {
                 var movingX = pressedKeys[39] != pressedKeys[37];
                 var movingY = pressedKeys[38] != pressedKeys[40];
                 if (pressedKeys[39]) {
                     this.pos[0] += movingY ? 4 : 6;
-                } 
+                }
                 if (pressedKeys[37]) {
                     this.pos[0] -= movingY ? 4 : 6;
                 }
@@ -66,39 +68,54 @@ define(function(require) {
                     this.pos[1] += movingX ? 4 : 6;
                 }
             },
-            _handleEvent: function(keyCode, canvasClass){
-                var playerObject = require('./playerObject')();
-                this.lastEvents[keyCode] = playerObject.init(this.pos[0], this.pos[1], this.props.keyEvent[keyCode], this.lastEvents[keyCode], canvasClass);
-                if (!playerObject.isAlive()) {
-                    playerObject = null;
-                } else {
-                    this.playerObjects.push(playerObject);
+            _handleEvent: function(keyCode, canvasClass) {
+                var eventProp = this.props.keyEvent[keyCode];
+                var soundKey = eventProp.sound;
+                if (soundKey) {
+                    this.soundManager.play(soundKey);
+                }
+                var events = eventProp.objects;
+                if (events) {
+                    for (var i = 0; i < events.length; i++) {
+                        var event = events[i];
+                        var playerObject = require('./playerObject')();
+                        var timeStamp = playerObject.init(this.pos[0], this.pos[1], event, this.lastEvents[keyCode], canvasClass, i > 0);
+                        if (i == events.length -1) {
+                            this.lastEvents[keyCode] = timeStamp;
+                        }
+                        if (!playerObject.isAlive()) {
+                            playerObject = null;
+                        }
+                        else {
+                            this.playerObjects.push(playerObject);
+                        }
+                    }
                 }
             },
-            getPosition: function(){
-              return this.pos;  
+            getPosition: function() {
+                return this.pos;
             },
-            addLife: function(amount){
-              this.life += amount;
-              if (this.life > this.maxLife) {
-                  this.life = this.maxLife;
-              }
+            addLife: function(amount) {
+                this.life += amount;
+                if (this.life > this.maxLife) {
+                    this.life = this.maxLife;
+                }
             },
-            hurt:function(amount) {
+            hurt: function(amount) {
                 this.life -= amount;
             },
-            getLife: function(){
-              return this.life;  
+            getLife: function() {
+                return this.life;
             },
             needsRefresh: function() {
                 return !this.drawn;
             },
-            getBounds: function(){
+            getBounds: function() {
                 var x1 = this.pos[0];
                 var y1 = this.pos[1];
                 var x2 = x1 + this.canvas.width;
                 var y2 = y1 + this.canvas.height;
-                return [x1,y1,x2,y2];
+                return [x1, y1, x2, y2];
             }
         }
     }

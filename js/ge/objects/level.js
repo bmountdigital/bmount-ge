@@ -16,9 +16,11 @@ define(function(require) {
             detectFn: null,
             gameOver: false,
             finished: false,
-            init: function(index, canvas) {
+            soundManager: null,
+            init: function(index, canvas, soundManager) {
                 this.detectFn = require('./../game/collisionDetector');
                 this.canvas = canvas;
+                this.soundManager = soundManager;
                 this.startTime = new Date().getTime();
                 this.log = require('util/log')("level.js");
                 var settings = require('./../util/settings');
@@ -30,7 +32,7 @@ define(function(require) {
                 this.eventHandler.init(props.events, settings, canvas);
                 this.player = require('./player')();
                 var playerProps = settings.getProperty("game.player")
-                this.player.init(playerProps, canvas.createCanvas(playerProps.size[0], playerProps[1]), this.playerPos);
+                this.player.init(playerProps, canvas.createCanvas(playerProps.size[0], playerProps[1]), this.playerPos, this.soundManager);
             },
             draw: function(pressedKeys) {
                 this._handlePlayerObjects(pressedKeys);

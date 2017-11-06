@@ -23,7 +23,7 @@ define(function(require) {
     }
 
     function playerObjectCollission(playerObject, event) {
-        event.kill();
+        event.hurt(playerObject.getForce());
         playerObject.kill();
     }
 
@@ -77,7 +77,6 @@ define(function(require) {
     }
 
     function pixelHitTest(source, target) {
-        debugger;
         if (!source || !target) {
             return false;
         }
