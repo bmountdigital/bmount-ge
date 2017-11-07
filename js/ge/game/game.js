@@ -13,6 +13,8 @@ define(function(require) {
             this.start();
         },
         start: function() {
+            var info = require('./../graphics/info');
+            info.init();
             this.loop();
             eventListeners.push(document.addEventListener("keydown", this.keyDown, false));
             eventListeners.push(document.addEventListener("keyup", this.keyUp, false));
@@ -26,6 +28,7 @@ define(function(require) {
             session.getCanvas().reset();
             if (level.isGameOver()) {
                 session.getSoundManager().play("lost");
+                var points = session.getPoints();
                 setTimeout(function(){
                     session.getScreens().gameOver(session.getCanvas().getContext());
                     session.getCanvas().updateDisplay();    

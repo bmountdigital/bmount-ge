@@ -21,7 +21,8 @@ define(function(require) {
             },
             kill: function(killed){
                 if (!this.killed && killed) {
-                    this.session.getSoundManager().play("shot");    
+                    this.session.getSoundManager().play("shot");
+                    this.session.addPoints(this.props.point);
                 }
                 this.killed = true;
             },

@@ -212,6 +212,7 @@ define(function(require) {
             "creature": {
                 "enemy1": {
                     "size": [40, 40],
+                    "point": 100,
                     "life": 10,
                     "force": 5,
                     "startPos": [null, -100],
@@ -255,6 +256,7 @@ define(function(require) {
                 "enemy2": {
                     "size": [30, 30],
                     "life": 10,
+                    "point": 120,
                     "force": 5,
                     "startPos": [null, -100],
                     "shapes": [{
@@ -299,6 +301,7 @@ define(function(require) {
                 "enemy3": {
                     "size": [40, 40],
                     "life": 10,
+                    "point": 30,
                     "force": 5,
                     "startPos": [null, -100],
                     "shapes": [{
@@ -341,6 +344,7 @@ define(function(require) {
                 "enemy4": {
                     "size": [40, 40],
                     "life": 10,
+                    "point": 90,
                     "force": 5,
                     "startPos": [null, -100],
                     "shapes": [{

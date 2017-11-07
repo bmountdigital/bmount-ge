@@ -34,6 +34,9 @@ define(function(require) {
                 var player = this.session.getPlayer();
                 this.playerImage = player.draw();
                 ctx.drawImage(this.backgroundImage, 0, 0);
+                var info = require('./../graphics/info');
+                var infoImage = info.draw();
+                ctx.drawImage(infoImage, 800, 0);
                 var plPos = player.getPosition();
                 ctx.drawImage(this.playerImage, plPos[0], plPos[1]);
                 this._drawPlayerObjects(ctx);

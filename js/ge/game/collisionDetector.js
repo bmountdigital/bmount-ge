@@ -4,7 +4,6 @@ define(function(require) {
     var soundManager = null;
     var session = null;
     return function(playerObjects, events) {
-        debugger;
         session = require('./session');
         soundManager = session.getSoundManager();
         var player = session.getPlayer();

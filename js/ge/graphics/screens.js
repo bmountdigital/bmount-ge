@@ -13,6 +13,6 @@ define(function() {
             ctx.fillStyle = "#ffffff";
             ctx.fillText("Oops, you're dead!",250,270);
             ctx.closePath();
-        }     
+        }
     }
 });

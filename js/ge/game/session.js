@@ -9,6 +9,7 @@ define(function(require){
         background: null,
         eventHandler: null,
         shapeCreator: null,
+        points: 0,
         init: function(game){
             this.game = game;
             this.canvas = require("./../graphics/canvas");
@@ -28,6 +29,12 @@ define(function(require){
             var playerProps = this.settings.getProperty("game.player")
             this.player.init(playerProps, this.getCanvas().createCanvas(playerProps.size[0], playerProps[1]), this.playerPos);
             this.shapeCreator = require("./../graphics/shapeCreator");
+        },
+        addPoints: function(points){
+          this.points += points;  
+        },
+        getPoints: function(){
+          return this.points;  
         },
         getCurrentLevel: function(){
             return this.currentLevel;
