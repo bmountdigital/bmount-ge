@@ -8,7 +8,6 @@ define(function() {
             ctx.closePath();
         },
         gameOver: function(ctx){
-            
             ctx.beginPath();
             ctx.font = "64px Arial";
             ctx.fillStyle = "#ffffff";

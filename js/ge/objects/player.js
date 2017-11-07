@@ -12,29 +12,32 @@ define(function(require) {
             pos: [],
             playerObjects: [],
             soundManager: null,
-            init: function(props, canvas, playerPos, soundManager) {
+            a: null,
+            init: function(props, canvas) {
+                this.a = "gnu";
+                this.session = require('./../game/session');
+                this.shapeCreator = this.session.getShapeCreator();
                 this.props = props;
                 this.canvas = canvas;
                 this.life = props.life;
                 this.maxLife = props.life;
                 this.ctx = canvas.getContext("2d");
-                this.shapeCreator = require("./../graphics/shapeCreator");
-                this.pos = playerPos;
-                this.soundManager = soundManager;
+                
             },
             draw: function() {
                 if (this.needsRefresh()) {
                     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                     for (var i = 0; i < this.props.shapes.length; i++) {
                         var p = this.props.shapes[i];
-                        this.shapeCreator.draw(p, this.ctx);
+                        this.session.getShapeCreator().draw(p, this.ctx);
                     }
                     this.drawn = true;
                 }
                 return this.canvas;
 
             },
-            handlePressedKeys: function(pressedKeys, canvasClass, playerObjects) {
+            handlePressedKeys: function(pressedKeys, playerObjects) {
+                var canvasClass = this.session.getCanvas();
                 this._move(pressedKeys);
                 for (var keyCode in pressedKeys) {
                     if (pressedKeys[keyCode]) {
@@ -72,7 +75,7 @@ define(function(require) {
                 var eventProp = this.props.keyEvent[keyCode];
                 var soundKey = eventProp.sound;
                 if (soundKey) {
-                    this.soundManager.play(soundKey);
+                    this.session.getSoundManager().play(soundKey);
                 }
                 var events = eventProp.objects;
                 if (events) {
@@ -94,6 +97,9 @@ define(function(require) {
             },
             getPosition: function() {
                 return this.pos;
+            },
+            setPosition: function(pos){
+              this.pos = pos;  
             },
             addLife: function(amount) {
                 this.life += amount;

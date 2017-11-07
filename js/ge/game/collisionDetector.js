@@ -2,9 +2,12 @@ define(function(require) {
 
     var resolution = 4;
     var soundManager = null;
-    
-    return function(player, playerObjects, events, sndManager) {
-        soundManager = sndManager;
+    var session = null;
+    return function(playerObjects, events) {
+        debugger;
+        session = require('./session');
+        soundManager = session.getSoundManager();
+        var player = session.getPlayer();
         for (var i = 0; i < events.length; i++) {
             var event = events[i];
             if (isBoundaryColliding(player, event)) {

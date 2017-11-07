@@ -67,6 +67,62 @@ define(function(require) {
                     "enemy14": {
                         "creature": "enemy1",
                         "startTime": Math.random() * 13000
+                    },
+                    "enemy15": {
+                        "creature": "enemy4",
+                        "startTime": 12000 + Math.random() * 7000
+                    },
+                    "enemy16": {
+                        "creature": "enemy3",
+                        "startTime": 11000 + Math.random() * 7000
+                    },
+                    "enemy17": {
+                        "creature": "enemy2",
+                        "startTime": Math.random() * 22000
+                    },
+                    "enemy18": {
+                        "creature": "enemy1",
+                        "startTime": 10000 + Math.random() * 11000
+                    },
+                    "enemy19": {
+                        "creature": "enemy2",
+                        "startTime": 14000 + Math.random() * 7000
+                    },
+                    "enemy20": {
+                        "creature": "enemy4",
+                        "startTime": 12000 + Math.random() * 9000
+                    },
+                    "enemy21": {
+                        "creature": "enemy1",
+                        "startTime": 6000 + Math.random() * 13000
+                    },
+                    "enemy22": {
+                        "creature": "enemy1",
+                        "startTime": 16000 + Math.random() * 8000
+                    },
+                    "enemy23": {
+                        "creature": "enemy3",
+                        "startTime": 15000 + Math.random() * 11000
+                    },
+                    "enemy24": {
+                        "creature": "enemy3",
+                        "startTime": 17000 + Math.random() * 4000
+                    },
+                    "enemy25": {
+                        "creature": "enemy4",
+                        "startTime": 11000 + Math.random() * 9000
+                    },
+                    "enemy26": {
+                        "creature": "enemy2",
+                        "startTime": 5000 + Math.random() * 13000
+                    },
+                    "enemy27": {
+                        "creature": "enemy3",
+                        "startTime": Math.random() * 25000
+                    },
+                    "enemy28": {
+                        "creature": "enemy1",
+                        "startTime": 10000 + Math.random() * 13000
                     }
                 },
                 "startPosition": [480, 500],

@@ -5,17 +5,20 @@ define(function(require) {
             startTime: null,
             settings: null,
             soundManager: null,
-            init: function(events, settings, ctx, soundManager){
-                this.ctx = ctx;
-                this.settings = settings;
+            session: null,
+            ctx: null,
+            init: function(events){
+                this.session = require("./session"); 
+                this.ctx = this.session.getCanvas().getContext();
+                this.settings = this.session.getSettings();
                 this.startTime = new Date().getTime();
                 var creatureConstructor = require('./../objects/events/creatureEvent');
                 for (var name in events) {
                     var eventData = events[name];
                     var event = null;
                     if (eventData.creature) {
-                        event = creatureConstructor(eventData, settings, soundManager);
-                        event.init(ctx);
+                        event = creatureConstructor(eventData);
+                        event.init(this.ctx);
                     }
                     this.events.push(event);
                 }
@@ -29,7 +32,7 @@ define(function(require) {
                         event.draw();
                         var image = event.getImage();
                         var pos = event.getPosition();
-                        ctx.drawImage(event.getImage(), pos[0], pos[1]);
+                        this.ctx.drawImage(event.getImage(), pos[0], pos[1]);
                     } 
                     if (!event.isKilled()){
                         newEvents.push(event);

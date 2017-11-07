@@ -6,54 +6,46 @@ define(function(require) {
             backgroundImage: null,
             player: null,
             playerImage: null,
-            playerPos: null,
             isDone: false,
             log: null,
-            canvas: null,
             playerObjects: [],
             eventHandler: null,
             startTime: null,
             detectFn: null,
             gameOver: false,
             finished: false,
-            soundManager: null,
-            init: function(index, canvas, soundManager) {
+            session: null,
+            init: function(index) {
+                this.session = require('./../game/session');
                 this.detectFn = require('./../game/collisionDetector');
-                this.canvas = canvas;
-                this.soundManager = soundManager;
-                this.soundManager.play("bg");
+                this.session.getSoundManager().play("bg");
                 this.startTime = new Date().getTime();
-                this.log = require('util/log')("level.js");
-                var settings = require('./../util/settings');
-                var props = settings.getProperty("game.levels")[index];
-                this.playerPos = props.startPosition;
-                this.background = require('./background')();
-                this.background.init(props.background, canvas.createCanvas());
-                this.eventHandler = require('./../game/eventHandler')();
-                this.eventHandler.init(props.events, settings, canvas, this.soundManager);
-                this.player = require('./player')();
-                var playerProps = settings.getProperty("game.player")
-                this.player.init(playerProps, canvas.createCanvas(playerProps.size[0], playerProps[1]), this.playerPos, this.soundManager);
+                var props = this.session.getSettings().getProperty("game.levels")[index];
+                this.session.getPlayer().setPosition(props.startPosition);
+                this.session.getBackground().init(props.background, this.session.getCanvas().createCanvas());
+                this.session.getEventHandler().init(props.events);
             },
             draw: function(pressedKeys) {
                 this._handlePlayerObjects(pressedKeys);
-                var ctx = this.canvas.getContext();
-                ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                this.backgroundImage = this.background.draw();
-                this.playerImage = this.player.draw();
+                var canvas = this.session.getCanvas();
+                var ctx = canvas.getContext();
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                this.backgroundImage = this.session.getBackground().draw();
+                var player = this.session.getPlayer();
+                this.playerImage = player.draw();
                 ctx.drawImage(this.backgroundImage, 0, 0);
-                var plPos = this.player.getPosition();
+                var plPos = player.getPosition();
                 ctx.drawImage(this.playerImage, plPos[0], plPos[1]);
                 this._drawPlayerObjects(ctx);
-                this.eventHandler.loop(ctx);
-                this.detectFn(this.player, this.playerObjects, this.eventHandler.getLiveEvents(), this.soundManager);
+                this.session.getEventHandler().loop(ctx);
+                this.detectFn(this.playerObjects, this.session.getEventHandler().getLiveEvents());
             },
             _handlePlayerObjects: function(pressedKeys) {
-                if (this.player.getLife() < 1) {
+                if (this.session.getPlayer().getLife() < 1) {
                     this.gameOver = true;
                 }
                 else {
-                    this.playerObjects = this.player.handlePressedKeys(pressedKeys, this.canvas, this.playerObjects);
+                    this.playerObjects = this.session.getPlayer().handlePressedKeys(pressedKeys, this.playerObjects);
                     for (var i = 0; i < this.playerObjects.length; i++) {
                         var o = this.playerObjects[i];
                         o.draw();
@@ -72,7 +64,7 @@ define(function(require) {
             },
             isGameOver() {
                 if (this.gameOver) {
-                    this.soundManager.stop("bg");
+                    this.session.getSoundManager().stop("bg");
                 }
                 return this.gameOver;
             }

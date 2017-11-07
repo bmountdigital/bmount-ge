@@ -5,10 +5,12 @@ define(function(require) {
             drawn: false,
             canvas: null, //html canvas
             ctx: null,
-            init: function(props, canvas) {
+            session: null,
+            init: function(props) {
                 this.props = props;
-                this.canvas = canvas;
-                this.ctx = canvas.getContext("2d");
+                this.session = require('./../game/session');
+                this.canvas = this.session.getCanvas().createCanvas();
+                this.ctx = this.canvas.getContext("2d");
             },
             draw: function() {
                 if (this.needsRefresh()) {

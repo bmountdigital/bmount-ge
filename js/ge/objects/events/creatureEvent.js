@@ -1,16 +1,17 @@
 define(function(require) {
-    return function(eventData, settings, soundManager) {
+    return function(eventData) {
+        
         var creature = {
             time: eventData.startTime ? eventData.startTime : null,
-            props: JSON.parse(JSON.stringify(settings.getProperty("game.creature")[eventData.creature])),
+            props: JSON.parse(JSON.stringify(require('./../../game/session').getSettings().getProperty("game.creature")[eventData.creature])),
             alive: false,
             killed: false,
             mainCanvas: null,
             drawn: false,
             pos: [0,0],
             canvas: null, //html canvas
+            session: require('./../../game/session'),
             ctx: null,
-            soundManager: soundManager,
             life: 0,
             isAlive: function(elapsed) {
                 if (!this.alive && this.time && this.isWakeTime(elapsed)) {
@@ -20,7 +21,7 @@ define(function(require) {
             },
             kill: function(killed){
                 if (!this.killed && killed) {
-                    this.soundManager.play("shot");    
+                    this.session.getSoundManager().play("shot");    
                 }
                 this.killed = true;
             },
@@ -36,14 +37,14 @@ define(function(require) {
             getForce: function() {
                 return this.props.force;
             },
-            init: function(mainCanvas) {
+            init: function() {
+                this.session = require('./../../game/session');
                 this.life = this.props.life;
-                this.shapeCreator = require("./../../graphics/shapeCreator");
-                this.mainCanvas = mainCanvas;
+                this.mainCanvas = this.session.getCanvas();
                 if (this.props.startPos) {
                     this.pos = this.props.startPos;
                     if (!this.pos[0]) {
-                        this.pos[0] = Math.random() * (mainCanvas.getSize()[0] -100) + 1;
+                        this.pos[0] = Math.random() * (this.mainCanvas.getSize()[0] -100) + 1;
                     }
                 } else {
                     this.pos = [300,-10];
@@ -57,7 +58,7 @@ define(function(require) {
                     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                     for (var i = 0; i < this.props.shapes.length; i++) {
                         var p = this.props.shapes[i];
-                        this.shapeCreator.draw(p, ctx);
+                        this.session.getShapeCreator().draw(p, ctx);
                     }
                     this.drawn = true;
                 }
