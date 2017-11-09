@@ -13,7 +13,7 @@ define(function(require){
          this.localCtx.beginPath();
          this.localCtx.font = "12px Arial";
          this.localCtx.fillStyle = "#ffffff";
-         this.localCtx.fillText("Life: " + this.session.getPlayer().getLife(),100,30);
+         this.localCtx.fillText("Life: " + this.session.getPlayer().getLifeStatus(),100,30);
          this.localCtx.closePath();
          this.localCtx.beginPath();
          this.localCtx.font = "12px Arial";

@@ -23,6 +23,8 @@ define(function(require) {
             var currentLevel = session.getCurrentLevel();
             level = require("./../objects/level")(currentLevel);
             level.init(currentLevel);
+            session.setLevel(level);
+            
         },
         loop: function() {
             session.getCanvas().reset();

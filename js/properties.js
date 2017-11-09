@@ -1,15 +1,14 @@
 define(function(require) {
     return {
-        "logger": {
-            "level": "DEBUG"
-        },
         "game": {
             "title": "BMount-spaceships",
             "levels": [{
                 "name": "Level 1",
+                "speed": 2,
                 "background": {
                     "type": "color",
-                    "color": "rgba(0,0,0,0.5)"
+                    "color": "rgba(0,0,0,0.8)",
+                    "objects": "star"
                 },
                 "events": {
                     "enemy1": {
@@ -137,7 +136,7 @@ define(function(require) {
                     "fillColor": "#555555",
                     "color": "#555555",
                     "lineWidth": 1,
-                    "arguments": [0, 26, 40, 3]
+                    "arguments": [0, 19, 40, 3]
                 }, {
                     "type": "cust",
                     "fill": true,
@@ -145,13 +144,28 @@ define(function(require) {
                     "color": "#888888",
                     "lineWidth": 0,
                     "arguments": [
-                        [20, 10],
-                        [40, 22],
-                        [40, 26],
-                        [20, 28],
-                        [0, 26],
-                        [0, 22],
-                        [20, 10]
+                        [20, 7],
+                        [40, 15],
+                        [40, 19],
+                        [20, 21],
+                        [0, 19],
+                        [0, 15],
+                        [20, 7]
+                    ]
+                },{
+                    "type": "cust",
+                    "fill": true,
+                    "fillColor": "#888888",
+                    "color": "#888888",
+                    "lineWidth": 0,
+                    "arguments": [
+                        [20, 25],
+                        [35, 32],
+                        [35, 34],
+                        [20, 35],
+                        [5, 34],
+                        [5, 32],
+                        [20, 25]
                     ]
                 }, {
                     "type": "cust",
@@ -197,13 +211,13 @@ define(function(require) {
                             "type": "object",
                             "id": "bullet1",
                             "minWait": 200,
-                            "relPos": [8, 20]
+                            "relPos": [8, 15]
                         }, {
                             "event": "create",
                             "type": "object",
                             "id": "bullet1",
                             "minWait": 200,
-                            "relPos": [28, 20]
+                            "relPos": [28, 15]
                         }]
 
                     }
@@ -408,7 +422,7 @@ define(function(require) {
                     src: "sound/boom.mp3"
                 },
                 "bg": {
-                    vol:0.1,
+                    vol:0.3,
                     src: "sound/bg.mp3",
                     loop: true
                 },

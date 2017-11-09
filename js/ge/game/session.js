@@ -10,6 +10,7 @@ define(function(require){
         eventHandler: null,
         shapeCreator: null,
         points: 0,
+        level: null,
         init: function(game){
             this.game = game;
             this.canvas = require("./../graphics/canvas");
@@ -62,6 +63,12 @@ define(function(require){
         },
         getShapeCreator: function(){
             return this.shapeCreator;
+        },
+        setLevel: function(level){
+            this.level = level;
+        },
+        getLevel: function(){
+            return this.level;
         }
         
         
